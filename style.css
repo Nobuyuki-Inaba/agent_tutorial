@@ -12,6 +12,7 @@
     --bg-hover: #f1f5f9;
     --text-primary: #1e293b;
     --text-secondary: #94a3b8;
+    --text-completed: #64748b;
     --border-color: #e2e8f0;
     --todo-completed-bg: #ecfdf5;
     --button-primary: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
@@ -34,6 +35,7 @@
     --bg-hover: #334155;
     --text-primary: #f1f5f9;
     --text-secondary: #64748b;
+    --text-completed: #a7f3d0;
     --border-color: #334155;
     --todo-completed-bg: #14532d;
     --button-primary: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
@@ -241,7 +243,7 @@ h1 {
 }
 
 .todo-item.completed .todo-text {
-    color: var(--text-secondary);
+    color: var(--text-completed);
     text-decoration: line-through;
     text-decoration-thickness: 2px;
 }
