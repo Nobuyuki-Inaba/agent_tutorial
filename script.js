@@ -84,22 +84,22 @@ function toggleComplete(id) {
 
 function deleteTodo(id) {
     const todoElement = document.querySelector(`[data-todo-id="${id}"]`);
+    
+    const performDeletion = () => {
+        const todos = getTodos();
+        const updatedTodos = todos.filter(todo => todo.id !== id);
+        localStorage.setItem('todos', JSON.stringify(updatedTodos));
+        renderTodos();
+    };
+    
     if (todoElement) {
         // Add fade out animation
         todoElement.style.animation = 'fadeOutSlide 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards';
         
         // Wait for animation to complete before removing
-        setTimeout(() => {
-            const todos = getTodos();
-            const updatedTodos = todos.filter(todo => todo.id !== id);
-            localStorage.setItem('todos', JSON.stringify(updatedTodos));
-            renderTodos();
-        }, 300);
+        setTimeout(performDeletion, 300);
     } else {
-        const todos = getTodos();
-        const updatedTodos = todos.filter(todo => todo.id !== id);
-        localStorage.setItem('todos', JSON.stringify(updatedTodos));
-        renderTodos();
+        performDeletion();
     }
 }
 
