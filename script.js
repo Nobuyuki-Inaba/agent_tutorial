@@ -83,10 +83,24 @@ function toggleComplete(id) {
 }
 
 function deleteTodo(id) {
-    const todos = getTodos();
-    const updatedTodos = todos.filter(todo => todo.id !== id);
-    localStorage.setItem('todos', JSON.stringify(updatedTodos));
-    renderTodos();
+    const todoElement = document.querySelector(`[data-todo-id="${id}"]`);
+    
+    const performDeletion = () => {
+        const todos = getTodos();
+        const updatedTodos = todos.filter(todo => todo.id !== id);
+        localStorage.setItem('todos', JSON.stringify(updatedTodos));
+        renderTodos();
+    };
+    
+    if (todoElement) {
+        // Add fade out animation
+        todoElement.style.animation = 'fadeOutSlide 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards';
+        
+        // Wait for animation to complete before removing
+        setTimeout(performDeletion, 300);
+    } else {
+        performDeletion();
+    }
 }
 
 function getTodos() {
@@ -106,6 +120,7 @@ function renderTodos() {
     todos.forEach(todo => {
         const li = document.createElement('li');
         li.className = `todo-item ${todo.completed ? 'completed' : ''}`;
+        li.setAttribute('data-todo-id', todo.id);
         li.innerHTML = `
             <input type="checkbox" class="todo-checkbox" ${todo.completed ? 'checked' : ''} onchange="toggleComplete(${todo.id})">
             <div class="todo-text">${escapeHtml(todo.text)}</div>
